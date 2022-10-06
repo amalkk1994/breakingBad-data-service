@@ -35,9 +35,37 @@ public class UploadDataApplication implements CommandLineRunner {
 
 		List<CharactersBB> charactersBB = objectMapper.readValue(inputStream,typeReference);
 
-		characterBBRepository.save(charactersBB.get(0));
+		// CharactersBB isExisting = characterBBRepository.findByChar_id(charactersBB.get(0).getChar_id());
 
-		System.out.println(charactersBB);
+		for (CharactersBB characterBB: charactersBB) {
+
+			CharactersBB isExisting = characterBBRepository.findByName(characterBB.getName());
+			System.out.println(isExisting);
+
+			if (isExisting == null) {
+				System.out.println("Not Existing...inserting:" + characterBB.getName());
+				characterBBRepository.save(characterBB);
+			} else {
+				System.out.println(characterBB.getName() + " is Existing...");
+			}
+
+		}
+
+		/*
+		CharactersBB isExisting = characterBBRepository.findByName(charactersBB.get(1).getName());
+
+		System.out.println(isExisting);
+
+		if (isExisting == null) {
+			System.out.println("Not Existing...");
+			characterBBRepository.save(charactersBB.get(0));
+		} else {
+			System.out.println("Existing...");
+		}
+*/
+		// characterBBRepository.save(charactersBB.get(0));
+
+	//	System.out.println(charactersBB);
 
 	}
 
