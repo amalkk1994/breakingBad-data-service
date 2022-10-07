@@ -1,7 +1,9 @@
 package com.amc.breakingBad.uploadData;
 
 import com.amc.breakingBad.uploadData.model.CharactersBB;
+import com.amc.breakingBad.uploadData.model.QuotesBB;
 import com.amc.breakingBad.uploadData.repository.CharacterBBRepository;
+import com.amc.breakingBad.uploadData.repository.QuotesBBRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -20,6 +22,9 @@ public class UploadDataApplication implements CommandLineRunner {
 
 	@Autowired
 	private CharacterBBRepository characterBBRepository;
+
+	@Autowired
+	private QuotesBBRepository quotesBBRepository;
 	public static void main(String[] args) {
 
 		SpringApplication.run(UploadDataApplication.class, args);
@@ -51,21 +56,24 @@ public class UploadDataApplication implements CommandLineRunner {
 
 		}
 
-		/*
-		CharactersBB isExisting = characterBBRepository.findByName(charactersBB.get(1).getName());
+		TypeReference<List<QuotesBB>> typeReferenceQuotes = new TypeReference<List<QuotesBB>>(){};
+		InputStream inputStreamQuotes  = TypeReference.class.getResourceAsStream("/json/quotes.json");
 
-		System.out.println(isExisting);
+		List<QuotesBB> quotesBB = objectMapper.readValue(inputStreamQuotes,typeReferenceQuotes);
 
-		if (isExisting == null) {
-			System.out.println("Not Existing...");
-			characterBBRepository.save(charactersBB.get(0));
-		} else {
-			System.out.println("Existing...");
+		for (QuotesBB quoteBB: quotesBB) {
+
+			QuotesBB isExistingQuote = quotesBBRepository.findByQuote(quoteBB.getQuote());
+			System.out.println(isExistingQuote);
+
+			if (isExistingQuote == null) {
+				System.out.println("Not Existing...inserting:" + quoteBB.getQuote());
+				quotesBBRepository.save(quoteBB);
+			} else {
+				System.out.println(quoteBB.getQuote() + " is Existing...");
+			}
+
 		}
-*/
-		// characterBBRepository.save(charactersBB.get(0));
-
-	//	System.out.println(charactersBB);
 
 	}
 
