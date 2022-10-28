@@ -17,6 +17,7 @@ public class QuotesBB {
     private String quote;
     private String series;
 
+    private String quoteId;
     @Override
     public String toString() {
         return (
