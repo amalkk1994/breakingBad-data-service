@@ -25,6 +25,8 @@ public class CharactersBB {
     private String nickname;
     private String portrayed;
 
+    private String charId;
+
     @Override
     public String toString() {
         return ("Character:<" + "id:"+ id + "\r\n" + "char_id:" + char_id + "\r\n" +

@@ -49,6 +49,7 @@ public class UploadDataApplication implements CommandLineRunner {
 
 			if (isExisting == null) {
 				System.out.println("Not Existing...inserting:" + characterBB.getName());
+				characterBB.setCharId(characterBB.getChar_id());
 				characterBBRepository.save(characterBB);
 			} else {
 				System.out.println(characterBB.getName() + " is Existing...");
@@ -68,6 +69,7 @@ public class UploadDataApplication implements CommandLineRunner {
 
 			if (isExistingQuote == null) {
 				System.out.println("Not Existing...inserting:" + quoteBB.getQuote());
+				quoteBB.setQuoteId(quoteBB.getQuote_id());
 				quotesBBRepository.save(quoteBB);
 			} else {
 				System.out.println(quoteBB.getQuote() + " is Existing...");
